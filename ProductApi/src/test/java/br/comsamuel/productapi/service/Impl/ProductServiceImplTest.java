@@ -17,7 +17,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.when;
+import static org.mockito.Mockito.*;
 
 @SpringBootTest
 class ProductServiceImplTest {
@@ -50,9 +50,37 @@ class ProductServiceImplTest {
     @DisplayName("Product result did not expected")
     void testSaveProduct_WhenProductAlredyBeenCreated_ShouldReturnExceptionAlredyExist() {
         when(repository.save(any())).thenReturn(product);
-        
+        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+
         Exception thrown = assertThrows(ObjectNotFoundException.class, () -> {
             service.saveProduct(product);
+        });
+        assertEquals(ObjectNotFoundException.class, thrown.getClass());
+        assertEquals("Object product not found!", thrown.getMessage());
+    }
+
+    @Test
+    @DisplayName("Find by id return success")
+    void testFindById_WhenProductExistInDataBase_ShouldReturnProductById(){
+        when(repository.findById(anyLong())).thenReturn(optionalProduct);
+
+        var product = service.findById(1L);
+
+        Assertions.assertNotNull(product);
+        Assertions.assertEquals("TV", product.get().getName());
+        Assertions.assertEquals(2000.0,product.get().getPrice());
+        Assertions.assertEquals(Optional.class, product.getClass());
+        Assertions.assertEquals(Product.class, product.get().getClass());
+
+        verify(repository, times(1)).findById(1L);
+    }
+    @Test
+    @DisplayName("Find by id return exception")
+    void testFindById_WhenProductExistInDataBase_ShouldReturnObjectNotFoundException(){
+        when(repository.findById(anyLong())).thenReturn(Optional.empty());
+
+        Exception thrown = assertThrows(ObjectNotFoundException.class, () -> {
+            service.findById(1L);
         });
         assertEquals(ObjectNotFoundException.class, thrown.getClass());
         assertEquals("Object product not found!", thrown.getMessage());
