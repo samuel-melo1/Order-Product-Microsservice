@@ -2,7 +2,6 @@ package br.comsamuel.productapi.service.Impl;
 
 import br.comsamuel.productapi.domain.Product;
 import br.comsamuel.productapi.repository.ProductRepository;
-import br.comsamuel.productapi.service.enums.StatusErrorEnum;
 import br.comsamuel.productapi.service.exception.ObjectNotFoundException;
 import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -11,13 +10,14 @@ import org.junit.jupiter.api.Test;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
-
 import java.util.List;
 import java.util.Optional;
-
 import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.ArgumentMatchers.*;
-import static org.mockito.Mockito.*;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.ArgumentMatchers.anyLong;
+import static org.mockito.Mockito.times;
+import static org.mockito.Mockito.verify;
+import static org.mockito.Mockito.when;
 
 @SpringBootTest
 class ProductServiceImplTest {
