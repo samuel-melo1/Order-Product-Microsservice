@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.logging.LoggingSystem;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.Optional;
 
 @Service
@@ -26,10 +27,14 @@ public class ProductServiceImpl implements ProductService {
         LOG.info("saving product");
         return repository.save(product);
     }
-
     @Override
     public Optional<Product> findById(Long id){
         LOG.info("searching products by id");
         return Optional.ofNullable(repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(StatusErrorEnum.NOT_FOUND)));
+    }
+
+    @Override
+    public List<Product> findAllProducts() {
+        return repository.findAll();
     }
 }

@@ -12,10 +12,10 @@ import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.springframework.boot.test.context.SpringBootTest;
 
+import java.util.List;
 import java.util.Optional;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 import static org.mockito.ArgumentMatchers.*;
 import static org.mockito.Mockito.*;
 
@@ -86,6 +86,20 @@ class ProductServiceImplTest {
         assertEquals("Object product not found!", thrown.getMessage());
     }
 
+    @Test
+    @DisplayName("Find all products")
+    void testFindAll_WhenExistOneOrMoreProductInDataBase_ShouldReturnListProducts(){
+        when(repository.findAll()).thenReturn(List.of(product));
+
+        List<Product> products = service.findAllProducts();
+
+        assertNotNull(products);
+        assertEquals(Product.class, products.get(0).getClass());
+        assertEquals("TV",products.get(0).getName());
+        assertEquals(2000.0,products.get(0).getPrice());
+        assertEquals(1, products.size());
+        verify(repository, times(1)).findAll();
+    }
     public void MockProductEntity(){
         product = new Product(1L, "TV", "Using to watching movie", 2000.0);
         optionalProduct = Optional.of(new Product(1L, "TV", "Using to watching movie", 2000.0));
