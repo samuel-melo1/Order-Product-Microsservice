@@ -1,7 +1,7 @@
-package br.com.samuel.orderapi.domain;
+package br.com.samuel.orderapi.client.domain;
+
 
 import java.io.Serializable;
-
 
 public class Product implements Serializable {
     private Long id_product;
@@ -11,14 +11,12 @@ public class Product implements Serializable {
 
     public Product() {
     }
-
     public Product(Long id_product, String name, String description, Double price) {
         this.id_product = id_product;
         this.name = name;
         this.description = description;
         this.price = price;
     }
-
     public Long getId_product() {
         return id_product;
     }

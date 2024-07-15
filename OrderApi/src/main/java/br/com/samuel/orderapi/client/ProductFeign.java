@@ -1,6 +1,6 @@
 package br.com.samuel.orderapi.client;
 
-import br.com.samuel.orderapi.domain.Product;
+import br.com.samuel.orderapi.client.domain.Product;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -14,6 +14,7 @@ public interface ProductFeign {
 
     @GetMapping("/api/v1/products")
     ResponseEntity<List<Product>> findAll();
+
     @GetMapping(value = "/api/v1/{id}")
-    public ResponseEntity<Optional<Product>> findById(@PathVariable("id") Long id);
+    ResponseEntity<Optional<Product>> findById(@PathVariable("id") Long id);
 }
