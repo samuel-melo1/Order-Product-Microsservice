@@ -3,7 +3,7 @@ package br.comsamuel.productapi.service.enums;
 import org.springframework.http.HttpStatus;
 
 public enum StatusErrorEnum {
-    NOT_FOUND("001", "Object product not found!", HttpStatus.NOT_FOUND);
+    NOT_FOUND("001", "Product id Not Found!", HttpStatus.NOT_FOUND);
 
     private final String code;
     private final String message;
