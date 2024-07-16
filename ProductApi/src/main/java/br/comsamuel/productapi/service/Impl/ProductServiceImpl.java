@@ -21,7 +21,7 @@ public class ProductServiceImpl implements ProductService {
 
     @Override
     public Product saveProduct(Product product){
-        if(findById(product.getId_product()).isEmpty()){
+        if(!repository.existsById(product.getId_product())){
             LOG.info("saving product");
             return repository.save(product);
         }
@@ -30,7 +30,7 @@ public class ProductServiceImpl implements ProductService {
     @Override
     public Optional<Product> findById(Long id){
         LOG.info("searching products by id");
-        return repository.findById(id);
+        return Optional.ofNullable(repository.findById(id).orElseThrow(() -> new ObjectNotFoundException(StatusErrorEnum.NOT_FOUND)));
     }
 
     @Override
