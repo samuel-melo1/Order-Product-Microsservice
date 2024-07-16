@@ -1,26 +1,42 @@
 package br.com.samuel.orderapi.domain;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
+
+import java.io.Serializable;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.List;
+import java.util.Set;
 
 @Entity
-public class Order {
+@Table(name = "orders")
+public class Order implements Serializable {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id_order;
     private LocalDateTime date_order;
     private Boolean paid;
+    @ElementCollection
+    @CollectionTable(name = "order-item",
+    joinColumns = @JoinColumn(name = "order_id"))
+    @Column(name = "product_id")
+    private Set<Long> products = new HashSet<>();
 
     public Order(){
     }
-    public Order(Long id_order, LocalDateTime date_order, Boolean paid) {
+    public Order(Long id_order, LocalDateTime date_order, Boolean paid, List<Long> products) {
         this.id_order = id_order;
         this.date_order = date_order;
         this.paid = paid;
+        this.products = new HashSet<>();
+    }
+    public Set<Long> getProducts() {
+        return products;
+    }
+    public void setProducts(Set<Long> products) {
+        this.products = products;
     }
     public Long getId_order() {
         return id_order;
