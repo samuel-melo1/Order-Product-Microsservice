@@ -15,7 +15,13 @@ public class OrderController {
 
     @PostMapping("/create-order")
     public ResponseEntity<Order> createOrder(@RequestBody Order order) {
-        Order createdOrder = service.create(order);
+        var createdOrder = service.create(order);
         return new ResponseEntity<>(createdOrder, HttpStatus.CREATED);
+    }
+
+    @DeleteMapping("/delete/{id}")
+    public ResponseEntity<Void> delete(@PathVariable("id") Long id) {
+        service.delete(id);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }

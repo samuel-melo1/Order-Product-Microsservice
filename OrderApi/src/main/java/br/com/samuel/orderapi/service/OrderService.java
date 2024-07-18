@@ -7,4 +7,5 @@ public interface OrderService {
 
     Order create(Order order);
 
+    void delete(Long id);
 }
