@@ -1,6 +1,7 @@
-package br.com.samuel.orderapi.service.exception;
+package br.com.samuel.orderapi.service.exception.handler;
 
 import br.com.samuel.orderapi.controller.response.RestErrorMessage;
+import br.com.samuel.orderapi.service.exception.ObjectNotFoundException;
 import jakarta.servlet.http.HttpServletRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.ControllerAdvice;

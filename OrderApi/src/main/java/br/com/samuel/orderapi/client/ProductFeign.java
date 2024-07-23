@@ -1,6 +1,4 @@
 package br.com.samuel.orderapi.client;
-
-
 import br.com.samuel.orderapi.client.config.CustomErrorDecoder;
 import br.com.samuel.orderapi.client.domain.Product;
 import org.springframework.cloud.openfeign.FeignClient;
