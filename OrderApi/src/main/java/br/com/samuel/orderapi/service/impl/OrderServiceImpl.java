@@ -32,10 +32,11 @@ public class OrderServiceImpl implements OrderService {
         return repository.save(order);
     }
     @Override
-    public void delete(Long id) {
+    public Boolean delete(Long id) {
         if(repository.existsById(id)){
             repository.deleteById(id);
+            return true;
         }
-        throw new ObjectNotFoundException(StatusErrorEnum.NOT_FOUND);
+        return false;
     }
 }
